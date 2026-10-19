@@ -349,6 +349,20 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
   *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
   html{scroll-behavior:auto}
 }
+/* ---------- 新增交互 ---------- */
+/* 精选列表悬停浮图 */
+#floatCard{position:fixed;left:0;top:0;width:270px;padding:9px 9px 0;background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:12px;box-shadow:0 26px 70px rgba(0,0,0,.22);pointer-events:none;z-index:1200;opacity:0;transition:opacity .28s var(--ease);will-change:transform}
+#floatCard img{display:block;width:100%;height:186px;object-fit:contain;border-radius:7px;background:#f2f1ee}
+#floatCard .fc-cap{font-size:11px;letter-spacing:.16em;color:#8a8a86;text-align:center;padding:8px 0 9px}
+#floatCard.show{opacity:1}
+/* 磁吸元素 */
+.magnet{will-change:transform}
+/* 标题逐字上浮 */
+.chw{display:inline-block;overflow:hidden;vertical-align:top}
+.chw .ch{display:inline-block;transform:translateY(118%);transition:transform .68s cubic-bezier(.19,.66,.22,1)}
+.sec-head.in .chw .ch{transform:translateY(0)}
+/* 灯箱缩放态 */
+#lightbox.lb-zoomed img{touch-action:none}
 </style>
 </head>
 <body>
@@ -439,31 +453,31 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
       <p class="desc">四个设计方向与一段品牌项目经历，48 件作品记录。点击任一板块，直达对应章节。</p>
     </div>
     <div class="featured-list reveal">
-      <a class="f-row" href="#poster" style="--fc:var(--acc-a)">
+      <a class="f-row" href="#poster" style="--fc:var(--acc-a)" data-img="assets/img/page-01.jpg" data-label="Poster Design · 海报设计">
         <span class="fno en">A¹</span>
         <span class="fname">海报设计</span>
         <span class="ftag en">Poster · Campaign</span>
         <span class="arrow">↗</span>
       </a>
-      <a class="f-row" href="#ecom" style="--fc:var(--acc-b)">
+      <a class="f-row" href="#ecom" style="--fc:var(--acc-b)" data-img="assets/img/page-10.jpg" data-label="E-commerce · 电商设计">
         <span class="fno en">B²</span>
         <span class="fname">电商设计</span>
         <span class="ftag en">E-commerce · Package</span>
         <span class="arrow">↗</span>
       </a>
-      <a class="f-row" href="#illustration" style="--fc:var(--acc-c)">
+      <a class="f-row" href="#illustration" style="--fc:var(--acc-c)" data-img="assets/img/page-18.jpg" data-label="Illustration · 插画设计">
         <span class="fno en">C³</span>
         <span class="fname">插画设计</span>
         <span class="ftag en">Illustration · IP</span>
         <span class="arrow">↗</span>
       </a>
-      <a class="f-row" href="#ui" style="--fc:var(--acc-d)">
+      <a class="f-row" href="#ui" style="--fc:var(--acc-d)" data-img="assets/img/page-42.jpg" data-label="UI &amp; Interaction · UI 与交互">
         <span class="fno en">D⁴</span>
         <span class="fname">UI 与交互</span>
         <span class="ftag en">UI · Illustration · HMI</span>
         <span class="arrow">↗</span>
       </a>
-      <a class="f-row" href="#projects" style="--fc:var(--acc-e)">
+      <a class="f-row" href="#projects" style="--fc:var(--acc-e)" data-img="assets/img/nio-store-map.jpg" data-label="Brand Campaign · 项目经历">
         <span class="fno en">E⁵</span>
         <span class="fname">项目经历</span>
         <span class="ftag en">NIO ONVO · Campaign</span>
@@ -704,13 +718,14 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
 
 <button id="toTop" aria-label="回到顶部">↑</button>
 <div id="toast" role="status" aria-live="polite"></div>
+<div id="floatCard" aria-hidden="true"><img src="" alt=""><div class="fc-cap en"></div></div>
 
 <!-- 灯箱 -->
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="作品查看">
   <button id="lbClose" aria-label="关闭">✕</button>
   <button class="lb-btn lb-prev" id="lbPrev" aria-label="上一张">←</button>
   <button class="lb-btn lb-next" id="lbNext" aria-label="下一张">→</button>
-  <div id="lbHint" class="en">← → Switch · ESC Close</div>
+  <div id="lbHint" class="en">← → 切换 · 滚轮缩放 · 双击复位 · ESC 关闭</div>
   <div class="stage">
     <img id="lbImg" src="" alt="作品大图">
     <div id="lbCap"><i></i><span></span></div>
@@ -877,6 +892,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
     cur=(i+list.length)%list.length;
     var it=list[cur],img=it.querySelector("img");
     lbImg.src=img.src;lbImg.alt=img.alt;
+    lbReset();
     lb.classList.toggle("lb-long",it.classList.contains("long-item"));
     lbNo.textContent=String(cur+1).padStart(2,"0")+" / "+String(list.length).padStart(2,"0");
     lbTxt.textContent=it.getAttribute("data-cap")||img.alt||"";
@@ -907,6 +923,140 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
     var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
     if(Math.abs(dx)>46&&Math.abs(dx)>Math.abs(dy)*1.4){dx<0?show(cur+1):show(cur-1);}
   },{passive:true});
+
+  /* ---------- 灯箱滚轮缩放 + 拖拽平移 + 双击复位 ---------- */
+  var lbScale=1,lbX=0,lbY=0,dragging=false,dsx=0,dsy=0,dobx=0,doby=0;
+  function lbApply(){
+    if(lbScale===1&&!lbX&&!lbY){lbImg.style.transform="";lb.classList.remove("lb-zoomed");return;}
+    lbImg.style.transform="translate("+lbX.toFixed(1)+"px,"+lbY.toFixed(1)+"px) scale("+lbScale.toFixed(3)+")";
+    lb.classList.add("lb-zoomed");
+  }
+  function lbClamp(){
+    var mx=(lbScale-1)*lbImg.clientWidth/2,my=(lbScale-1)*lbImg.clientHeight/2;
+    lbX=Math.max(-mx,Math.min(mx,lbX));lbY=Math.max(-my,Math.min(my,lbY));
+  }
+  function lbReset(){lbScale=1;lbX=0;lbY=0;dragging=false;lbApply();}
+  lbImg.addEventListener("wheel",function(e){
+    if(lb.classList.contains("lb-long"))return; /* 长图保持原生滚动 */
+    e.preventDefault();
+    var old=lbScale;
+    lbScale*=e.deltaY<0?1.13:.885;
+    lbScale=Math.max(1,Math.min(4.5,lbScale));
+    if(lbScale===1){lbX=0;lbY=0;}
+    else{
+      var r=lbImg.getBoundingClientRect();
+      var cx=e.clientX-(r.left+r.width/2),cy=e.clientY-(r.top+r.height/2);
+      var k=lbScale/old;
+      lbX=cx-(cx-lbX)*k;lbY=cy-(cy-lbY)*k;
+    }
+    lbClamp();lbApply();
+  },{passive:false});
+  lbImg.addEventListener("pointerdown",function(e){
+    if(lbScale<=1||dragging||lb.classList.contains("lb-long"))return;
+    dragging=true;dsx=e.clientX;dsy=e.clientY;dobx=lbX;doby=lbY;
+    try{lbImg.setPointerCapture(e.pointerId);}catch(err){}
+  });
+  lbImg.addEventListener("pointermove",function(e){
+    if(!dragging)return;
+    lbX=dobx+(e.clientX-dsx);lbY=doby+(e.clientY-dsy);
+    lbClamp();lbApply();
+  });
+  ["pointerup","pointercancel"].forEach(function(ev){
+    lbImg.addEventListener(ev,function(){dragging=false;});
+  });
+  lbImg.addEventListener("dblclick",function(e){
+    if(lb.classList.contains("lb-long"))return;
+    e.preventDefault();
+    if(lbScale>1){lbReset();return;}
+    lbScale=2.4;
+    var r=lbImg.getBoundingClientRect();
+    lbX=-((e.clientX-r.left)-r.width/2)*lbScale;
+    lbY=-((e.clientY-r.top)-r.height/2)*lbScale;
+    lbClamp();lbApply();
+  });
+
+  /* ---------- 标题逐字上浮 ---------- */
+  document.querySelectorAll(".sec-head .tt h2").forEach(function(h){
+    var txt=h.textContent;
+    h.setAttribute("aria-label",txt);h.textContent="";
+    txt.split("").forEach(function(ch,i){
+      var w=document.createElement("span");w.className="chw";w.setAttribute("aria-hidden","true");
+      var c=document.createElement("span");c.className="ch";c.textContent=ch;
+      c.style.transitionDelay=(i*38)+"ms";
+      w.appendChild(c);h.appendChild(w);
+    });
+  });
+
+  /* ---------- 磁吸元素 ---------- */
+  if(matchMedia("(hover:hover) and (pointer:fine)").matches&&!matchMedia("(prefers-reduced-motion:reduce)").matches){
+    var mags=[].slice.call(document.querySelectorAll(".f-row,#toTop,#themeBtn,#burger,.lb-btn,.logo,.c-card"));
+    var mst=mags.map(function(el){return {el:el,x:0,y:0,tx:0,ty:0};});
+    mst.forEach(function(m){
+      m.el.classList.add("magnet");
+      m.el.addEventListener("mousemove",function(e){
+        var r=m.el.getBoundingClientRect();
+        m.tx=(e.clientX-(r.left+r.width/2))*.28;
+        m.ty=(e.clientY-(r.top+r.height/2))*.28;
+      });
+      m.el.addEventListener("mouseleave",function(){m.tx=0;m.ty=0;});
+    });
+    (function magLoop(){
+      mst.forEach(function(m){
+        m.x+=(m.tx-m.x)*.2;m.y+=(m.ty-m.y)*.2;
+        if(Math.abs(m.x)>.04||Math.abs(m.y)>.04){m.el.style.transform="translate("+m.x.toFixed(2)+"px,"+m.y.toFixed(2)+"px)";}
+        else{m.el.style.transform="";}
+      });
+      requestAnimationFrame(magLoop);
+    })();
+  }
+
+  /* ---------- 精选列表悬停浮图跟随 ---------- */
+  var fc=document.getElementById("floatCard");
+  if(matchMedia("(hover:hover) and (pointer:fine)").matches){
+    var fcImg=fc.querySelector("img"),fcCap=fc.querySelector(".fc-cap");
+    var fcx=innerWidth/2,fcy=innerHeight/2,fcpx=fcx,fcpy=fcy;
+    document.querySelectorAll(".f-row").forEach(function(row){
+      row.addEventListener("mouseenter",function(){
+        fcImg.src=row.getAttribute("data-img")||"";
+        fcImg.alt=row.getAttribute("data-label")||"";
+        fcCap.textContent=row.getAttribute("data-label")||"";
+        fc.classList.add("show");
+      });
+      row.addEventListener("mouseleave",function(){fc.classList.remove("show");});
+    });
+    document.addEventListener("mousemove",function(e){fcx=e.clientX;fcy=e.clientY;});
+    (function fcLoop(){
+      fcpx+=(fcx-fcpx)*.13;fcpy+=(fcy-fcpy)*.13;
+      var lx=fcpx+28;
+      if(lx+286>innerWidth)lx=fcpx-286;
+      if(lx<8)lx=8;
+      var rot=Math.max(-7,Math.min(7,(fcx-fcpx)*.28));
+      fc.style.transform="translate("+lx.toFixed(1)+"px,"+(fcpy-104).toFixed(1)+"px) rotate("+rot.toFixed(2)+"deg)";
+      requestAnimationFrame(fcLoop);
+    })();
+  }
+
+  /* ---------- 滚动速率倾斜 ---------- */
+  if(matchMedia("(hover:hover) and (pointer:fine)").matches&&!matchMedia("(prefers-reduced-motion:reduce)").matches){
+    var gals=[].slice.call(document.querySelectorAll(".gallery"));
+    var lastY=window.scrollY||0,skew=0,skewT=0;
+    window.addEventListener("scroll",function(){
+      var st=window.scrollY||document.documentElement.scrollTop;
+      skewT=Math.max(-2.4,Math.min(2.4,(lastY-st)*.14));
+      lastY=st;
+    },{passive:true});
+    (function skewLoop(){
+      skewT*=.88;
+      skew+=(skewT-skew)*.14;
+      if(Math.abs(skew)>.02){
+        var v="skewY("+skew.toFixed(3)+"deg)";
+        gals.forEach(function(g){g.style.transform=v;});
+      }else if(skew!==0){
+        skew=0;gals.forEach(function(g){g.style.transform="";});
+      }
+      requestAnimationFrame(skewLoop);
+    })();
+  }
 })();
 </script>
 </body>
