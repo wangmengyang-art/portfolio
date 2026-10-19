@@ -357,11 +357,6 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
   html{scroll-behavior:auto}
 }
 /* ---------- 新增交互 ---------- */
-/* 精选列表悬停浮图 */
-#floatCard{position:fixed;left:0;top:0;width:270px;padding:9px 9px 0;background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:12px;box-shadow:0 26px 70px rgba(0,0,0,.22);pointer-events:none;z-index:1200;opacity:0;transition:opacity .28s var(--ease);will-change:transform}
-#floatCard img{display:block;width:100%;height:186px;object-fit:contain;border-radius:7px;background:#f2f1ee}
-#floatCard .fc-cap{font-size:11px;letter-spacing:.16em;color:#8a8a86;text-align:center;padding:8px 0 9px}
-#floatCard.show{opacity:1}
 /* 磁吸元素 */
 .magnet{will-change:transform}
 /* 标题逐字上浮 */
@@ -750,7 +745,6 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
 
 <button id="toTop" aria-label="回到顶部">↑</button>
 <div id="toast" role="status" aria-live="polite"></div>
-<div id="floatCard" aria-hidden="true"><img src="" alt=""><div class="fc-cap en"></div></div>
 
 <!-- 灯箱 -->
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="作品查看">
@@ -1042,53 +1036,21 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
     })();
   }
 
-  /* ---------- 精选列表悬停浮图跟随 ---------- */
-  var fc=document.getElementById("floatCard");
-  if(matchMedia("(hover:hover) and (pointer:fine)").matches){
-    var fcImg=fc.querySelector("img"),fcCap=fc.querySelector(".fc-cap");
-    var fcx=innerWidth/2,fcy=innerHeight/2,fcpx=fcx,fcpy=fcy;
-    document.querySelectorAll(".f-row").forEach(function(row){
-      row.addEventListener("mouseenter",function(){
-        fcImg.src=row.getAttribute("data-img")||"";
-        fcImg.alt=row.getAttribute("data-label")||"";
-        fcCap.textContent=row.getAttribute("data-label")||"";
-        fc.classList.add("show");
-      });
-      row.addEventListener("mouseleave",function(){fc.classList.remove("show");});
-    });
-    document.addEventListener("mousemove",function(e){fcx=e.clientX;fcy=e.clientY;});
-    (function fcLoop(){
-      fcpx+=(fcx-fcpx)*.13;fcpy+=(fcy-fcpy)*.13;
-      var lx=fcpx+28;
-      if(lx+286>innerWidth)lx=fcpx-286;
-      if(lx<8)lx=8;
-      var rot=Math.max(-7,Math.min(7,(fcx-fcpx)*.28));
-      fc.style.transform="translate("+lx.toFixed(1)+"px,"+(fcpy-104).toFixed(1)+"px) rotate("+rot.toFixed(2)+"deg)";
-      requestAnimationFrame(fcLoop);
-    })();
+  /* ---------- 导航当前板块高亮 ---------- */
+  var navLinks=[].slice.call(document.querySelectorAll("#navLinks a[data-nav]"));
+  var spySecs=navLinks.map(function(a){return document.querySelector(a.getAttribute("href"));});
+  var curNav=-2;
+  function spyUpdate(){
+    var mark=innerHeight*.35,cur=-1;
+    spySecs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<=mark)cur=i;});
+    if(cur!==curNav){
+      curNav=cur;
+      navLinks.forEach(function(a,i){a.classList.toggle("active",i===cur);});
+    }
   }
-
-  /* ---------- 滚动速率倾斜 ---------- */
-  if(matchMedia("(hover:hover) and (pointer:fine)").matches&&!matchMedia("(prefers-reduced-motion:reduce)").matches){
-    var gals=[].slice.call(document.querySelectorAll(".gallery"));
-    var lastY=window.scrollY||0,skew=0,skewT=0;
-    window.addEventListener("scroll",function(){
-      var st=window.scrollY||document.documentElement.scrollTop;
-      skewT=Math.max(-2.4,Math.min(2.4,(lastY-st)*.14));
-      lastY=st;
-    },{passive:true});
-    (function skewLoop(){
-      skewT*=.88;
-      skew+=(skewT-skew)*.14;
-      if(Math.abs(skew)>.02){
-        var v="skewY("+skew.toFixed(3)+"deg)";
-        gals.forEach(function(g){g.style.transform=v;});
-      }else if(skew!==0){
-        skew=0;gals.forEach(function(g){g.style.transform="";});
-      }
-      requestAnimationFrame(skewLoop);
-    })();
-  }
+  window.addEventListener("scroll",spyUpdate,{passive:true});
+  window.addEventListener("resize",spyUpdate);
+  spyUpdate();
 })();
 </script>
 </body>
