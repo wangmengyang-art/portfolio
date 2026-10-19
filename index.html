@@ -218,6 +218,12 @@ section{position:relative}
 .sub-tt b{font-size:15.5px;font-weight:800;letter-spacing:.06em}
 .sub-tt .sen{font-size:12.5px;color:var(--sub);letter-spacing:.1em}
 .sub-tt .sdesc{flex-basis:100%;font-size:13px;color:var(--sub);letter-spacing:.04em;line-height:1.7}
+.case-bar{display:grid;grid-template-columns:1.05fr 1.3fr 1.05fr;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:2px 0 26px;background:color-mix(in srgb,var(--bg-soft) 60%,transparent)}
+.case-bar .cb{padding:16px 18px 15px;display:flex;flex-direction:column;gap:7px}
+.case-bar .cb+.cb{border-left:1px solid var(--line)}
+.case-bar small{font-family:var(--font-en);font-weight:800;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--sub)}
+.case-bar p{margin:0;font-size:13px;line-height:1.78;color:var(--ink);letter-spacing:.02em}
+@media (max-width:700px){.case-bar{grid-template-columns:1fr}.case-bar .cb+.cb{border-left:0;border-top:1px solid var(--line)}}
 .hero-dl{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;margin-top:20px;padding:12px 24px;border:1.5px solid var(--ink);border-radius:999px;font-family:var(--font-en);font-weight:800;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:transparent;transition:.3s var(--ease)}
 .hero-dl i{font-style:normal;font-size:15px;line-height:1;transition:transform .3s var(--ease)}
 .hero-dl span{font-family:var(--font-sans);letter-spacing:.3em}
@@ -453,7 +459,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
         <h2>作品精选</h2>
         <div class="en-sub">Selected Works · 2023 — 2026</div>
       </div>
-      <p class="desc">四个设计方向与一段品牌项目经历，48 件作品记录。点击任一板块，直达对应章节。</p>
+      <p class="desc">四个设计方向与一段品牌项目经历，41 件作品记录。点击任一板块，直达对应章节。</p>
     </div>
     <div class="featured-list reveal">
       <a class="f-row" href="#poster" style="--fc:var(--acc-a)" data-img="assets/img/page-05.jpg" data-label="Poster Design · 海报设计">
@@ -525,6 +531,11 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
       </div>
       <p class="desc">为九味佳食品搭建 10 余款 SPU 的包装与电商视觉体系：酱料瓶签、包装设计与电商详情页，建立可复用的色彩分级与排版规则。</p>
     </div>
+    <div class="case-bar reveal">
+      <div class="cb"><small class="en">Background · 背景</small><p>九味佳原有视觉陈旧、产品线识别度低，需要一次覆盖全产品线的品牌视觉升级。</p></div>
+      <div class="cb"><small class="en">My Role · 我的角色</small><p>负责包装与电商视觉设计——建立品牌色彩索引与标准化排版规则，为酱料、醋、生抽等产品线制定色彩分级方案，打磨高“食欲感”的商品视觉。</p></div>
+      <div class="cb"><small class="en">Result · 结果</small><p>重塑覆盖 10 余款 SPU 的包装与电商视觉体系，海报、瓶签与详情图落地商超与电商渠道。</p></div>
+    </div>
     <div class="gallery" data-cat="电商设计 E-commerce">
       <figure class="g-item reveal" data-cap="九味佳酱料标签 · 甜辣酱 / 黑椒酱 / 手抓饼酱 · 2026"><img loading="lazy" src="assets/img/page-10.jpg" alt="九味佳酱料标签系列"><figcaption>九味佳酱料标签 · 甜辣酱 / 黑椒酱 / 手抓饼酱 · 2026</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="九味佳劲爽烧烤酱标签 · 2026"><img loading="lazy" src="assets/img/page-11.jpg" alt="九味佳烧烤酱标签"><figcaption>九味佳劲爽烧烤酱标签 · 2026</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
@@ -549,14 +560,23 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
       </div>
       <p class="desc">为品牌与内容创作的系列插画——999 感冒灵主题组画、蒙德里安色系地标建筑，用统一的造型语言与色彩情绪，把故事画进画面里。</p>
     </div>
+    <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-c)"></span><b>999感冒灵 · 暖暖的很贴心</b><span class="sen en">Illustration Poster Series</span><small class="sdesc">为感冒药品牌创作的系列插画海报——把“暖心”画成看得见的温度。</small></div>
+    <div class="case-bar reveal">
+      <div class="cb"><small class="en">Background · 背景</small><p>以“暖暖的很贴心”为主题，为感冒药品牌创作传递温度感的系列插画海报。</p></div>
+      <div class="cb"><small class="en">My Role · 我的角色</small><p>完成从字体设计构思、核心元素提炼到三联成稿的全流程插画创作。</p></div>
+      <div class="cb"><small class="en">Result · 结果</small><p>产出三联系列海报与整套字体设计方案，构成完整的暖心视觉叙事。</p></div>
+    </div>
     <div class="gallery" data-cat="插画设计 Illustration">
-      <figure class="g-item reveal" data-cap="插画作品合集 · 目录页"><img loading="lazy" src="assets/img/page-21.jpg" alt="插画作品合集目录页"><figcaption>插画作品合集 · 目录页</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="999感冒灵 · 暖暖的很贴心 系列插画海报"><img loading="lazy" src="assets/img/page-23.jpg" alt="999感冒灵系列插画海报"><figcaption>999感冒灵 · 暖暖的很贴心 系列插画海报</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="999感冒灵 · 字体插画设计构思"><img loading="lazy" src="assets/img/page-24.jpg" alt="999感冒灵字体插画设计构思"><figcaption>999感冒灵 · 字体插画设计构思</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="999感冒灵 · 元素分析（一）"><img loading="lazy" src="assets/img/page-25.jpg" alt="999感冒灵元素分析一"><figcaption>999感冒灵 · 元素分析（一）</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="999感冒灵 · 元素分析（二）"><img loading="lazy" src="assets/img/page-26.jpg" alt="999感冒灵元素分析二"><figcaption>999感冒灵 · 元素分析（二）</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
+    </div>
+    <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-c)"></span><b>更多插画 · 地标与展示</b><span class="sen en">More Illustrations</span><small class="sdesc">蒙德里安色系的地标建筑插画与地铁灯箱应用展示。</small></div>
+    <div class="gallery" data-cat="插画设计 Illustration">
       <figure class="g-item reveal" data-cap="地标性建筑 · 蒙德里安色系插画 · 2025"><img loading="lazy" src="assets/img/page-18.jpg" alt="地标性建筑蒙德里安色系插画"><figcaption>地标性建筑 · 蒙德里安色系插画 · 2025</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="板绘插画 · 地铁灯箱展示 · 2025"><img loading="lazy" src="assets/img/page-17.jpg" alt="板绘插画地铁灯箱展示"><figcaption>板绘插画 · 地铁灯箱展示 · 2025</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
+      <figure class="g-item reveal" data-cap="插画作品合集 · 目录页"><img loading="lazy" src="assets/img/page-21.jpg" alt="插画作品合集目录页"><figcaption>插画作品合集 · 目录页</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
     </div>
   </div>
 </section>
@@ -573,6 +593,11 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
       <p class="desc">从「关爱老人」公益插画到 Peaceful Mood、Online Shopping、运动健康等 APP 界面，再到二十八星宿之东方苍龙交互设计——关注情绪价值与文化传播的界面表达。</p>
     </div>
     <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-d)"></span><b>二十八星宿之东方苍龙</b><span class="sen en">The Azure Dragon Mansions</span><small class="sdesc">东方苍龙七宿主视觉与七位星官角色卡——把传统星官体系画成可收集的卡牌。</small></div>
+    <div class="case-bar reveal">
+      <div class="cb"><small class="en">Background · 背景</small><p>将传统二十八星宿文化做年轻化转译，让东方苍龙七宿成为可收集、可传播的角色形象。</p></div>
+      <div class="cb"><small class="en">My Role · 我的角色</small><p>负责主视觉与七位星官的角色设定、插画绘制与卡面排版。</p></div>
+      <div class="cb"><small class="en">Result · 结果</small><p>一套苍龙主视觉与七张星官角色卡——角木蛟、亢金龙、氐土貉、房日兔、心月狐、尾火虎、箕水豹。</p></div>
+    </div>
     <div class="gallery" data-cat="UI与交互 UI & Interaction">
       <figure class="g-item reveal" data-cap="二十八星宿之东方苍龙 · 主视觉 · 2025"><img loading="lazy" src="assets/img/page-42.jpg" alt="二十八星宿东方苍龙主视觉"><figcaption>二十八星宿之东方苍龙 · 主视觉 · 2025</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="二十八星宿之东方苍龙 · 星官卡片 · 角木蛟 / 亢金龙 / 氐土貉 · 2025"><img loading="lazy" src="assets/img/page-43.jpg" alt="二十八星宿星官卡片"><figcaption>二十八星宿 · 星官卡片 · 角木蛟 / 亢金龙 / 氐土貉 · 2025</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
@@ -580,39 +605,29 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
       <figure class="g-item reveal" data-cap="二十八星宿之东方苍龙 · 星官卡片 · 尾火虎 / 箕水豹 · 2025"><img loading="lazy" src="assets/img/page-45.jpg" alt="二十八星宿星官卡片"><figcaption>二十八星宿 · 星官卡片 · 尾火虎 / 箕水豹 · 2025</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
     </div>
 
-    <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-d)"></span><b>Online Shopping · 购物 APP</b><span class="sen en">Mobile Shopping App</span><small class="sdesc">高饱和撞色与扁平怪角色的购物应用——主视觉、欢迎 / 登录页、商品首页与角色元素设定。</small></div>
+    <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-d)"></span><b>Online Shopping · 购物 APP</b><span class="sen en">Mobile Shopping App</span><small class="sdesc">高饱和撞色与扁平怪角色的购物应用——主视觉、欢迎 / 登录页与商品首页流程。</small></div>
     <div class="gallery" data-cat="UI与交互 UI & Interaction">
       <figure class="g-item reveal" data-cap="Online Shopping · 购物 APP 主视觉"><img loading="lazy" src="assets/img/page-31.jpg" alt="购物APP主视觉"><figcaption>Online Shopping · 购物 APP 主视觉</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="Online Shopping · 欢迎页 / 登录页界面"><img loading="lazy" src="assets/img/page-32.jpg" alt="购物APP欢迎登录界面"><figcaption>Online Shopping · 欢迎页 / 登录页界面</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="Online Shopping · 商品卡片与首页流程"><img loading="lazy" src="assets/img/page-33.jpg" alt="购物APP商品界面"><figcaption>Online Shopping · 商品卡片与首页流程</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
-      <figure class="g-item reveal" data-cap="Online Shopping · 角色元素分析"><img loading="lazy" src="assets/img/page-35.jpg" alt="购物APP角色元素分析"><figcaption>Online Shopping · 角色元素分析</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
     </div>
 
-    <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-d)"></span><b>运动健康 APP</b><span class="sen en">Sports Health App</span><small class="sdesc">黑粉撞色的运动打卡应用——信息采集、每日计划、打卡记录与完整设计系统。</small></div>
+    <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-d)"></span><b>运动健康 APP</b><span class="sen en">Sports Health App</span><small class="sdesc">黑粉撞色的运动打卡应用——主视觉、信息采集、每日计划与打卡记录。</small></div>
     <div class="gallery" data-cat="UI与交互 UI & Interaction">
       <figure class="g-item reveal" data-cap="运动健康 APP · 主视觉与设计说明"><img loading="lazy" src="assets/img/page-34.jpg" alt="运动健康APP主视觉"><figcaption>运动健康 APP · 主视觉与设计说明</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="运动健康 APP · 首页 / 每日打卡 / 个人中心"><img loading="lazy" src="assets/img/page-36.jpg" alt="运动健康APP界面"><figcaption>运动健康 APP · 首页 / 每日打卡 / 个人中心</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="运动健康 APP · 信息采集 / 智能助手 / 每日计划"><img loading="lazy" src="assets/img/page-37.jpg" alt="运动健康APP功能界面"><figcaption>运动健康 APP · 信息采集 / 智能助手 / 每日计划</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
-      <figure class="g-item reveal" data-cap="运动健康 APP · 设计系统（色彩 / 按钮 / 图标）"><img loading="lazy" src="assets/img/page-38.jpg" alt="运动健康APP设计系统"><figcaption>运动健康 APP · 设计系统（色彩 / 按钮 / 图标）</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
     </div>
 
-    <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-d)"></span><b>Peaceful Mood · 情感类 APP</b><span class="sen en">Emotional UI Design</span><small class="sdesc">舒缓情绪的记录型应用，与 Psychotherapy 心理疗愈界面共同构成情感化设计探索。</small></div>
+    <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-d)"></span><b>Peaceful Mood · 情感类 APP</b><span class="sen en">Emotional UI Design</span><small class="sdesc">舒缓情绪的记录型应用——从主视觉到首页、登录与心情报表的完整界面。</small></div>
     <div class="gallery" data-cat="UI与交互 UI & Interaction">
       <figure class="g-item reveal" data-cap="Peaceful Mood · 情感类 UI 设计 · 2025"><img loading="lazy" src="assets/img/page-39.jpg" alt="情感类UI设计"><figcaption>Peaceful Mood · 情感类 UI 设计 · 2025</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
       <figure class="g-item reveal" data-cap="Peaceful Mood · 首页 / 登录 / 心情报表界面"><img loading="lazy" src="assets/img/page-40.jpg" alt="Peaceful Mood界面设计"><figcaption>Peaceful Mood · 首页 / 登录 / 心情报表界面</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
-      <figure class="g-item reveal" data-cap="Psychotherapy · 心理疗愈 UI 设计规范"><img loading="lazy" src="assets/img/page-41.jpg" alt="心理疗愈UI设计规范"><figcaption>Psychotherapy · 心理疗愈 UI 设计规范</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
     </div>
 
-    <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-d)"></span><b>关爱老人 · 公益插画</b><span class="sen en">Care for the Elderly</span><small class="sdesc">以窗格漫画讲述老人日常的公益组画——从设计构思、成品插画到元素拆解。</small></div>
+    <div class="sub-tt reveal"><span class="sdot" style="background:var(--acc-d)"></span><b>关爱老人 · 公益插画</b><span class="sen en">Care for the Elderly</span><small class="sdesc">以窗格漫画讲述老人日常的公益主题系列插画。</small></div>
     <div class="gallery" data-cat="UI与交互 UI & Interaction">
       <figure class="g-item reveal" data-cap="关爱老人系列插画 · 2025"><img loading="lazy" src="assets/img/page-29.jpg" alt="关爱老人系列插画"><figcaption>关爱老人系列插画 · 2025</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
-      <figure class="g-item reveal" data-cap="关爱老人 · 设计构思 · 2025"><img loading="lazy" src="assets/img/page-30.jpg" alt="关爱老人设计构思"><figcaption>关爱老人 · 设计构思 · 2025</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
-      <figure class="g-item reveal" data-cap="关爱老人 · 元素分析（一） · 2025"><img loading="lazy" src="assets/img/page-27.jpg" alt="关爱老人元素分析一"><figcaption>关爱老人 · 元素分析（一） · 2025</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
-      <figure class="g-item reveal" data-cap="关爱老人 · 元素分析（二） · 2025"><img loading="lazy" src="assets/img/page-28.jpg" alt="关爱老人元素分析二"><figcaption>关爱老人 · 元素分析（二） · 2025</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
-    </div>
-
-    <div class="gallery" data-cat="UI与交互 UI & Interaction">
-      <figure class="g-item reveal" data-cap="作品集章节页 · UI 与交互"><img loading="lazy" src="assets/img/page-46.jpg" alt="作品集UI与交互章节页"><figcaption>作品集章节页 · UI 与交互</figcaption><span class="veil en">View<i class="zoom">Zoom</i></span></figure>
     </div>
   </div>
 </section>
@@ -627,6 +642,11 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
         <div class="en-sub t-e">NIO ONVO · Brand Campaign</div>
       </div>
       <p class="desc">蔚来汽车乐道品牌 · 市场活动策划实习期间的落地物料——从门店信息图、换电站开业传播到主题场景周边，让品牌出现在每一个真实触点。</p>
+    </div>
+    <div class="case-bar reveal">
+      <div class="cb"><small class="en">Background · 背景</small><p>乐道 L90 智能焕新发布会与换电站开业的传播物料需求（2026.03–07 实习期间）。</p></div>
+      <div class="cb"><small class="en">My Role · 我的角色</small><p>市场活动策划实习生——负责南通分会场 KT 板与指引牌、门店分布信息图、换电站开业长图与主题场景视觉。</p></div>
+      <div class="cb"><small class="en">Result · 结果</small><p>物料落地发布会现场；两家换电站开业长图先后通过公众号发布运营。</p></div>
     </div>
 
     <div class="sub-tt reveal"><span class="sdot"></span><b>门店与换电传播</b><span class="sen en">Retail &amp; Swap Station</span></div>
@@ -647,7 +667,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
 <!-- 数据条 -->
 <section class="stats">
   <div class="wrap stats-grid">
-    <div class="stat reveal"><div class="num en" data-count="48"><span>0</span><i>+</i></div><div class="lab">作品件数 Works</div></div>
+    <div class="stat reveal"><div class="num en" data-count="41"><span>0</span><i>+</i></div><div class="lab">作品件数 Works</div></div>
     <div class="stat reveal"><div class="num en" data-count="4"><span>0</span><i></i></div><div class="lab">设计领域 Fields</div></div>
     <div class="stat reveal"><div class="num en" data-count="3"><span>0</span><i>×</i></div><div class="lab">大厂实习 Internships</div></div>
     <div class="stat reveal"><div class="num en" data-count="3"><span>0</span><i>+</i></div><div class="lab">获奖与荣誉 Awards</div></div>
