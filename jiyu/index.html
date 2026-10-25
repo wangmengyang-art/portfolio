@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>技遇 · 用你会的，换你想学的</title>
+    <meta
+      name="description"
+      content="技遇是一个双向技能互换平台。发布「我能教」和「我想学」，找到刚好互补的人，用一份小契约把兴趣真正学完。"
+    />
+    <meta name="theme-color" content="#F4EFE4" />
+    <meta name="color-scheme" content="light" />
+    <meta property="og:title" content="技遇 · 用你会的，换你想学的" />
+    <meta
+      property="og:description"
+      content="不卖课，不抽佣。用一小时，换一小时。"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="assets/hero-swap.jpg" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="data.js"></script>
+    <script defer src="logic.js"></script>
+    <script defer src="icons.js"></script>
+    <script defer src="notes.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#app">跳到主要内容</a>
+    <header id="site-header" class="site-header"></header>
+    <main id="app" tabindex="-1"></main>
+    <footer id="site-footer" class="site-footer"></footer>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="移动端导航"></nav>
+    <div id="modal-root"></div>
+    <div id="toast-root" class="toast-root" role="status" aria-live="polite" aria-atomic="true"></div>
+    <noscript>
+      <div class="noscript-card">
+        <h1>技遇需要开启 JavaScript</h1>
+        <p>这是一个可交互的产品原型。请开启 JavaScript 后刷新页面。</p>
+      </div>
+    </noscript>
+  </body>
+</html>
