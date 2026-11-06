@@ -820,6 +820,53 @@ footer{border-top:1px solid var(--line);padding:30px 0 36px}
   window.addEventListener("scroll",onScroll,{passive:true});onScroll();
   toTop.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});});
 
+  /* ---------- 视差滚动 ---------- */
+  var reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var parallaxOn=!reduceMotion&&matchMedia("(hover:hover) and (pointer:fine)").matches&&innerWidth>860;
+  var hero=document.querySelector(".hero");
+  var pHeroTitle=hero.querySelector("h1"),pHeroCn=hero.querySelector(".hero-cn"),
+      pHeroMeta=hero.querySelector(".hero-meta"),pHeroKicker=hero.querySelector(".kicker"),
+      pHeroHint=hero.querySelector(".scroll-hint");
+  var pNos=[].slice.call(document.querySelectorAll(".sec-head .no"));
+  var pTick=false;
+  function setPY(el,y){
+    if(!el)return;
+    if(Math.abs(y)<.4)y=0;
+    if(el._py===y)return;
+    el._py=y;
+    el.style.transform=y?"translate3d(0,"+y.toFixed(1)+"px,0)":"";
+  }
+  function parallax(){
+    pTick=false;
+    if(!parallaxOn)return;
+    var st=window.scrollY||document.documentElement.scrollTop,vh=window.innerHeight;
+    if(hero&&st<hero.offsetHeight+vh){
+      setPY(pHeroKicker,-st*.30);
+      setPY(pHeroTitle,-st*.16);
+      setPY(pHeroCn,-st*.08);
+      setPY(pHeroMeta,-st*.04);
+      setPY(pHeroHint,-st*.22);
+    }
+    for(var i=0;i<pNos.length;i++){
+      var el=pNos[i],r=el.getBoundingClientRect();
+      setPY(el,(r.bottom<-120||r.top>vh+120)?0:(r.top+r.height/2-vh/2)*.08);
+    }
+  }
+  function askParallax(){if(!pTick){pTick=true;requestAnimationFrame(parallax);}}
+  function resetParallax(){
+    [pHeroKicker,pHeroTitle,pHeroCn,pHeroMeta,pHeroHint].forEach(function(el){if(el){el.style.transform="";el._py=0;}});
+    pNos.forEach(function(el){el.style.transform="";el._py=0;});
+  }
+  if(parallaxOn){
+    window.addEventListener("scroll",askParallax,{passive:true});
+    window.addEventListener("resize",function(){
+      var on=!reduceMotion&&matchMedia("(hover:hover) and (pointer:fine)").matches&&innerWidth>860;
+      if(on!==parallaxOn){parallaxOn=on;if(!on)resetParallax();}
+      askParallax();
+    },{passive:true});
+    askParallax();
+  }
+
   /* ---------- 移动端菜单 ---------- */
   var burger=document.getElementById("burger"),links=document.getElementById("navLinks");
   burger.addEventListener("click",function(){links.classList.toggle("open");});
