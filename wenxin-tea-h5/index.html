@@ -44,16 +44,31 @@ body{display:flex;align-items:center;justify-content:center;background:
 .btn:active{transform:scale(.96)}
 .btn.ghost{background:rgba(247,242,228,.85);color:var(--tea-d);box-shadow:0 3px 10px rgba(60,50,20,.18);border:1px solid rgba(95,122,63,.35)}
 .btn.small{padding:9px 20px;font-size:13px}
-.back{position:absolute;left:14px;top:calc(14px + env(safe-area-inset-top));z-index:30;
-  background:rgba(247,242,228,.88);border:1px solid rgba(95,122,63,.3);border-radius:999px;
-  padding:7px 15px;font-size:13px;color:var(--tea-d);font-weight:600;letter-spacing:.08em;cursor:pointer}
-.back:active{transform:scale(.95)}
-.scene-head{position:relative;z-index:20;padding:calc(14px + env(safe-area-inset-top)) 70px 8px;text-align:center}
+.back-bar{position:relative;z-index:26;flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:7px;
+  width:100%;border:0;border-top:1px solid rgba(95,122,63,.24);cursor:pointer;
+  padding:11px 16px calc(11px + env(safe-area-inset-bottom));
+  background:linear-gradient(180deg,rgba(250,246,234,.94),rgba(240,233,214,.98));
+  color:var(--tea-d);font-family:var(--sans);font-size:13.5px;font-weight:700;letter-spacing:.18em;
+  box-shadow:0 -8px 20px rgba(40,30,10,.12);-webkit-tap-highlight-color:transparent;
+  transition:background .15s}
+.back-bar:active{background:rgba(95,122,63,.16)}
+.back-bar i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:50%;background:var(--tea);color:#fbf7e9;
+  font-size:15px;line-height:1;padding-bottom:2px;flex:0 0 auto}
+.back-bar em{position:absolute;right:14px;font-style:normal;font-size:10px;font-weight:400;
+  color:#8c8464;letter-spacing:.08em}
+.swipe-hint{position:absolute;left:10px;top:50%;z-index:70;transform:translate(-8px,-50%);opacity:0;pointer-events:none;
+  display:flex;align-items:center;gap:6px;background:rgba(250,246,234,.96);border:1px solid rgba(95,122,63,.35);
+  border-radius:999px;padding:7px 14px 7px 10px;font-size:11.5px;color:var(--tea-d);letter-spacing:.1em;font-weight:600;
+  box-shadow:0 6px 16px rgba(40,30,10,.18);transition:opacity .18s,transform .18s}
+.swipe-hint.on{opacity:1;transform:translate(0,-50%)}
+.swipe-hint i{font-style:normal;width:18px;height:18px;border-radius:50%;background:var(--tea);color:#fbf7e9;
+  display:flex;align-items:center;justify-content:center;font-size:13px;padding-bottom:2px}
+.scene-head{position:relative;z-index:20;padding:calc(14px + env(safe-area-inset-top)) 20px 8px;text-align:center}
 .scene-head h2{font-family:var(--serif);font-weight:900;font-size:19px;letter-spacing:.24em;color:var(--ink)}
 .scene-head p{font-size:12px;color:var(--ink-l);letter-spacing:.14em;margin-top:3px}
 @media(max-width:400px){
-  .back{font-size:12px;padding:6px 11px}
-  .scene-head{padding-left:80px;padding-right:12px}
+  .scene-head{padding-left:16px;padding-right:16px}
   .scene-head h2{font-size:17.5px;letter-spacing:.18em}
   .map-top{padding:calc(10px + env(safe-area-inset-top)) 12px 0}
   .map-brand{gap:7px}
@@ -379,9 +394,30 @@ body{display:flex;align-items:center;justify-content:center;background:
 .photo-view.show{display:flex}
 .pv-sheet{position:relative;width:100%;max-width:356px;max-height:90%;overflow-y:auto;background:var(--paper);border-radius:20px;
   box-shadow:0 24px 60px rgba(0,0,0,.42);animation:popIn .3s cubic-bezier(.2,.8,.3,1.2)}
-.pv-figure{position:relative;line-height:0;background:#f7f1df;border-bottom:1px solid rgba(120,100,60,.18)}
+.pv-figure{position:relative;line-height:0;background:#f7f1df;border-bottom:1px solid rgba(120,100,60,.18);overflow:hidden;touch-action:pan-y}
 .pv-figure img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
-.pv-close{position:absolute;right:10px;top:10px;z-index:3;width:30px;height:30px;border-radius:50%;border:none;
+.pv-figure img.anim{animation:pvIn .26s ease-out}
+@keyframes pvIn{from{opacity:.35;transform:scale(1.02)}to{opacity:1;transform:none}}
+.pv-shade{position:absolute;left:0;right:0;bottom:0;height:44%;z-index:1;pointer-events:none;
+  background:linear-gradient(0deg,rgba(24,20,8,.5),rgba(24,20,8,0))}
+.pv-arrow{position:absolute;top:50%;z-index:3;transform:translateY(-50%);width:32px;height:32px;border:0;border-radius:50%;
+  background:rgba(30,28,18,.42);color:#f8f2e0;font-size:19px;line-height:1;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;padding:0 1px 2px 0;backdrop-filter:blur(2px);-webkit-tap-highlight-color:transparent}
+.pv-arrow:active{background:rgba(30,28,18,.7)}
+.pv-arrow.prev{left:8px}
+.pv-arrow.next{right:8px}
+.pv-arrow[hidden]{display:none}
+.pv-count{position:absolute;left:10px;top:10px;z-index:3;background:rgba(30,28,18,.55);color:#f8f2e0;
+  font-size:10px;letter-spacing:.14em;padding:4px 9px;border-radius:999px;line-height:1.4}
+.pv-cap{position:absolute;left:12px;bottom:12px;z-index:3;color:#fdf9ee;font-size:12px;letter-spacing:.12em;
+  line-height:1.4;text-shadow:0 1px 6px rgba(0,0,0,.55)}
+.pv-cap::before{content:"";display:inline-block;width:13px;height:1px;background:currentColor;vertical-align:middle;margin-right:7px;opacity:.7}
+.pv-thumbs{display:flex;gap:6px;padding:8px 10px;background:#f2ead6;border-bottom:1px solid rgba(120,100,60,.16)}
+.pv-thumb{flex:1;aspect-ratio:3/2;padding:0;border:2px solid transparent;border-radius:6px;overflow:hidden;background:#e6ddc6;
+  cursor:pointer;opacity:.68;transition:opacity .18s,border-color .18s;-webkit-tap-highlight-color:transparent}
+.pv-thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.pv-thumb.on{border-color:var(--gold);opacity:1}
+.pv-close{position:absolute;right:10px;top:10px;z-index:4;width:30px;height:30px;border-radius:50%;border:none;
   background:rgba(30,28,18,.55);color:#f8f2e0;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .pv-stamp{position:absolute;right:12px;bottom:12px;width:56px;height:56px;border-radius:50%;border:2.5px solid #d8492c;color:#d8492c;
   font-family:var(--serif);font-size:12px;line-height:1.12;display:none;align-items:center;justify-content:center;text-align:center;
@@ -446,7 +482,7 @@ body{display:flex;align-items:center;justify-content:center;background:
 .utensil.ghost{position:fixed;z-index:220;pointer-events:none;transform:scale(1.1);opacity:.96;box-shadow:0 16px 30px rgba(0,0,0,.3);margin:0}
 .seat-hint{position:relative;z-index:20;font-size:11px;color:#4f4a38;letter-spacing:.08em;background:rgba(250,246,234,.9);
   border:1px solid rgba(95,122,63,.25);border-radius:999px;padding:6px 14px;margin:10px auto 0;text-align:center;max-width:92%}
-.seat-bar{position:relative;z-index:20;display:flex;justify-content:center;padding:9px 0 calc(12px + env(safe-area-inset-bottom))}
+.seat-bar{position:relative;z-index:20;display:flex;justify-content:center;padding:9px 0 10px}
 #btnPour{min-width:150px}
 #btnPour:disabled{opacity:.38;box-shadow:none}
 #btnPour.ready{animation:pulse 1.5s ease-in-out infinite}
@@ -542,7 +578,6 @@ body{display:flex;align-items:center;justify-content:center;background:
   <section class="screen" id="sc-plant">
     <div class="bg" style="background-image:url('assets/bg-plant.jpg')"></div>
     <div class="shade"></div>
-    <button class="back" data-back>‹ 返回茶山</button>
     <div class="scene-head"><h2>苗圃 · 种茶</h2><p>松土、栽苗、浇水，一垄一垄来</p></div>
     <div class="stage-strip" id="plantStages"><span class="sdots"><i class="on"></i><i></i><i></i></span><em id="plantStageText">第 1 / 3 小关 · 整地</em></div>
     <div class="scene-body">
@@ -577,6 +612,7 @@ body{display:flex;align-items:center;justify-content:center;background:
       <div class="plant-hint" id="plantHint">点一株茶苗，再点一个土坑种下</div>
       <div class="scene-guide"><span>文小新</span><img src="assets/boy-cut.webp" alt="文小新"></div>
     </div>
+    <button class="back-bar" data-back aria-label="返回茶山"><i>‹</i><span>返回茶山</span><em>左滑返回</em></button>
     <div class="result-mask" id="plantResult">
       <div class="result-card">
         <div class="stamp-big in">种</div>
@@ -591,7 +627,6 @@ body{display:flex;align-items:center;justify-content:center;background:
   <section class="screen" id="sc-pick">
     <div class="bg" style="background-image:url('assets/bg-tea.jpg')"></div>
     <div class="shade"></div>
-    <button class="back" data-back>‹ 返回茶山</button>
     <div class="scene-head" style="color:#f6f1df"><h2 style="color:#f8f3e2;text-shadow:0 2px 8px rgba(0,0,0,.5)">茶坡 · 采茶</h2><p style="color:rgba(246,241,223,.8)">先采一芽一叶，再拣去老叶</p></div>
     <div class="stage-strip on-dark" id="pickStages"><span class="sdots"><i class="on"></i><i></i></span><em id="pickStageText">第 1 / 2 小关 · 采嫩芽</em></div>
     <div class="pick-hud">
@@ -608,6 +643,7 @@ body{display:flex;align-items:center;justify-content:center;background:
     </div>
     <div class="pick-timebar"><i id="pickBar"></i></div>
     <div class="pick-note" id="pickNote">采错老叶会扣嫩芽哦 · 点对了会闪光</div>
+    <button class="back-bar" data-back aria-label="返回茶山"><i>‹</i><span>返回茶山</span><em>左滑返回</em></button>
     <div class="result-mask" id="pickResult">
       <div class="result-card">
         <div class="stamp-big in">采</div>
@@ -622,7 +658,6 @@ body{display:flex;align-items:center;justify-content:center;background:
   <section class="screen" id="sc-wok">
     <div class="bg" style="background-image:url('assets/bg-wok.jpg')"></div>
     <div class="shade"></div>
-    <button class="back" data-back>‹ 返回茶山</button>
     <div class="scene-head"><h2 style="color:#f8f3e2;text-shadow:0 2px 8px rgba(0,0,0,.5)">茶坊 · 炒茶</h2><p style="color:rgba(246,241,223,.8)">先杀青，再提香，锅温别过火</p></div>
     <div class="stage-strip on-dark" id="wokStages"><span class="sdots"><i class="on"></i><i></i></span><em id="wokStageText">第 1 / 2 小关 · 杀青</em></div>
     <div class="scene-body">
@@ -647,6 +682,7 @@ body{display:flex;align-items:center;justify-content:center;background:
       </div>
     </div>
     <div class="cook-note" id="wokNote">长按屏幕开始翻炒 · 松手降温</div>
+    <button class="back-bar" data-back aria-label="返回茶山"><i>‹</i><span>返回茶山</span><em>左滑返回</em></button>
     <div class="result-mask" id="wokResult">
       <div class="result-card">
         <div class="stamp-big in">炒</div>
@@ -660,7 +696,6 @@ body{display:flex;align-items:center;justify-content:center;background:
   <!-- ============ 问答 ============ -->
   <section class="screen" id="sc-quiz">
     <div class="bg" style="background-image:url('assets/bg-quiz.jpg')"></div>
-    <button class="back" data-back>‹ 返回茶山</button>
     <div class="scene-head"><h2>茶亭 · 品茶问答</h2><p>答对三题，盖上「知」字印</p></div>
     <div class="quiz-wrap">
       <div class="quiz-orn"><b>茶</b><span>三题 · 一壶茶</span></div>
@@ -671,6 +706,7 @@ body{display:flex;align-items:center;justify-content:center;background:
         <div class="quiz-fact" id="quizFact"></div>
       </div>
     </div>
+    <button class="back-bar" data-back aria-label="返回茶山"><i>‹</i><span>返回茶山</span><em>左滑返回</em></button>
     <div class="result-mask" id="quizResult">
       <div class="result-card">
         <div class="stamp-big in">知</div>
@@ -684,7 +720,6 @@ body{display:flex;align-items:center;justify-content:center;background:
   <!-- ============ 打卡 ============ -->
   <section class="screen" id="sc-tour">
     <div class="bg"></div>
-    <button class="back" data-back>‹ 返回茶山</button>
     <div class="scene-head"><h2>信阳 · 风景打卡</h2><p>五处风景，点开看看，再盖章</p></div>
     <div class="tour-cards">
       <div class="tcard" data-spot="lake">
@@ -714,15 +749,22 @@ body{display:flex;align-items:center;justify-content:center;background:
       </div>
       <div class="tour-tip">点亮五处地标 · 合成一枚「游」字印</div>
     </div>
+    <button class="back-bar" data-back aria-label="返回茶山"><i>‹</i><span>返回茶山</span><em>左滑返回</em></button>
     <div class="photo-view" id="photoView">
       <div class="pv-sheet">
         <div class="pv-figure">
           <img id="pvImg" alt="">
+          <div class="pv-shade"></div>
+          <button class="pv-arrow prev" id="pvPrev" aria-label="上一张">‹</button>
+          <button class="pv-arrow next" id="pvNext" aria-label="下一张">›</button>
+          <div class="pv-count" id="pvCount">1 / 3</div>
+          <div class="pv-cap" id="pvCap"></div>
           <button class="pv-close" id="pvClose" aria-label="关闭">×</button>
           <div class="pv-stamp">已打卡</div>
         </div>
+        <div class="pv-thumbs" id="pvThumbs"></div>
         <div class="pv-info">
-          <div class="pv-kicker">信阳 · 风景</div>
+          <div class="pv-kicker">信阳 · 风景 · 场景示意</div>
           <h3 id="pvTitle"></h3>
           <p id="pvDesc"></p>
           <div class="pv-fact" id="pvFact"></div>
@@ -744,7 +786,6 @@ body{display:flex;align-items:center;justify-content:center;background:
   <section class="screen" id="sc-seat">
     <div class="bg" style="background-image:url('assets/bg-seat.jpg')"></div>
     <div class="shade"></div>
-    <button class="back" data-back>‹ 返回茶山</button>
     <div class="scene-head"><h2>茶席 · 摆席斟茶</h2><p>下一章 · 四件茶器，摆一席茶</p></div>
     <div class="seat-body">
       <div class="seat-mat" id="seatMat">
@@ -783,6 +824,7 @@ body{display:flex;align-items:center;justify-content:center;background:
       <div class="seat-hint" id="seatHint">0 / 4 已摆好 · 拖动茶器到虚线位置</div>
     </div>
     <div class="seat-bar"><button class="btn" id="btnPour" disabled>注水</button></div>
+    <button class="back-bar" data-back aria-label="返回茶山"><i>‹</i><span>返回茶山</span><em>左滑返回</em></button>
     <div class="result-mask" id="seatResult">
       <div class="result-card">
         <div class="stamp-big in">席</div>
@@ -864,11 +906,19 @@ const sfx = {
 /* ================= 屏幕路由 ================= */
 window.addEventListener('pointerup', ()=>{ try{ if(wokState) wokState.stirring = false; }catch(e){} });
 let cleanup = null;
+const SUB_SCREENS = ['sc-plant','sc-pick','sc-wok','sc-quiz','sc-tour','sc-seat'];
+let mapLock = 0;
 function show(id){
   if(cleanup){ try{cleanup();}catch(e){} cleanup=null; }
   $$('.screen').forEach(s=>s.classList.remove('active'));
   const el = document.getElementById(id);
   el.classList.add('active');
+  if(SUB_SCREENS.includes(id) && !(history.state && history.state.wxScreen===id)){
+    try{ history.pushState({wxScreen:id}, ''); }catch(e){}
+  }
+  if(id==='sc-map' && history.state && history.state.wxScreen){
+    try{ history.replaceState(null, ''); }catch(e){}
+  }
   if(id==='sc-map'){ renderSeals(); renderMarkers(); greetMap(); }
   if(id==='sc-plant') startPlant();
   if(id==='sc-pick') startPick();
@@ -878,7 +928,54 @@ function show(id){
   if(id==='sc-seat') startSeat();
   if(id==='sc-final') renderCert();
 }
-$$('[data-back]').forEach(b=>b.addEventListener('click',()=>{ sfx.tap(); show('sc-map'); }));
+function goMap(){
+  const cur = document.querySelector('.screen.active');
+  if(!cur || cur.id==='sc-map') return;
+  const now = Date.now();
+  if(now - mapLock < 600) return;
+  mapLock = now;
+  sfx.tap();
+  show('sc-map');
+}
+window.addEventListener('popstate', ()=>{
+  const cur = document.querySelector('.screen.active');
+  if(cur && SUB_SCREENS.includes(cur.id)) show('sc-map');
+  mapLock = Date.now();
+});
+$$('[data-back]').forEach(b=>b.addEventListener('click', goMap));
+
+/* 左边缘右滑返回（与手机系统侧滑返回并存） */
+let swipe = null;
+const SW_EDGE = 28, SW_FIRE = 62;
+const swipeHint = document.createElement('div');
+swipeHint.className = 'swipe-hint';
+swipeHint.innerHTML = '<i>‹</i>松手返回茶山';
+$('#app').appendChild(swipeHint);
+const overlayOpen = () => !!document.querySelector('.result-mask.show, .photo-view.show');
+document.addEventListener('touchstart', e=>{
+  const cur = document.querySelector('.screen.active');
+  if(!cur || !SUB_SCREENS.includes(cur.id) || overlayOpen()){ swipe=null; return; }
+  const t = e.touches[0];
+  if(t.clientX > SW_EDGE || t.clientY < 60){ swipe=null; return; }
+  swipe = {x:t.clientX, y:t.clientY, dx:0, on:true};
+}, {passive:true});
+document.addEventListener('touchmove', e=>{
+  if(!swipe || !swipe.on) return;
+  const t = e.touches[0];
+  const dx = t.clientX - swipe.x, dy = t.clientY - swipe.y;
+  if(Math.abs(dy) > 46 && Math.abs(dy) > dx){ swipe.on=false; swipeHint.classList.remove('on'); return; }
+  swipe.dx = dx;
+  swipeHint.classList.toggle('on', dx > 34);
+  if(dx > 10) e.preventDefault();
+}, {passive:false});
+document.addEventListener('touchend', ()=>{
+  if(!swipe) return;
+  const fire = swipe.on && swipe.dx > SW_FIRE;
+  swipe = null;
+  swipeHint.classList.remove('on');
+  if(fire) goMap();
+});
+document.addEventListener('touchcancel', ()=>{ swipe=null; swipeHint.classList.remove('on'); });
 
 /* ================= 地图 ================= */
 function renderSeals(){
@@ -1273,7 +1370,7 @@ function failPick(){
   $('#pickResult').classList.add('show');
 }
 function bindBack(card){
-  card.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',()=>{ sfx.tap(); show('sc-map'); }));
+  card.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click', goMap));
 }
 window.restartPick = (stage=1)=>{ $('#pickResult').classList.remove('show'); startPickStage(stage); };
 
@@ -1430,23 +1527,48 @@ function showQuiz(i){
 
 /* ================= 打卡 ================= */
 const TOUR_SPOTS = {
-  lake:{ name:'南湾湖', img:'assets/spot-lake.jpg',
+  lake:{ name:'南湾湖',
+    photos:[
+      {src:'assets/spot-lake-1.jpg', cap:'湖面晨雾'},
+      {src:'assets/spot-lake-2.jpg', cap:'湖心茶岛'},
+      {src:'assets/spot-lake-3.jpg', cap:'湖畔码头'}
+    ],
     desc:'船从湖心过，岛屿一座接一座。中原第一湖的水汽，养出信阳毛尖的鲜爽。',
     fact:'南湾湖水域约 75 平方公里，湖中大小岛屿 61 个。湖中有岛、岛上有茶，是信阳的“水”。' },
-  jigong:{ name:'鸡公山', img:'assets/spot-jigong.jpg',
+  jigong:{ name:'鸡公山',
+    photos:[
+      {src:'assets/spot-jigong-1.jpg', cap:'云海日出'},
+      {src:'assets/spot-jigong-2.jpg', cap:'山间老别墅'},
+      {src:'assets/spot-jigong-3.jpg', cap:'松林石阶'}
+    ],
     desc:'山风穿过松林，云雾里藏着上百栋百年别墅。夏天上山，比城里凉快得多。',
     fact:'鸡公山与北戴河、庐山、莫干山并称中国四大避暑胜地，山间保留着一批近代别墅。' },
-  haotang:{ name:'郝堂村', img:'assets/spot-haotang.jpg',
+  haotang:{ name:'郝堂村',
+    photos:[
+      {src:'assets/spot-haotang-1.jpg', cap:'荷塘古村'},
+      {src:'assets/spot-haotang-2.jpg', cap:'青石小巷'},
+      {src:'assets/spot-haotang-3.jpg', cap:'稻田人家'}
+    ],
     desc:'荷塘边的豫南古村，白墙黛瓦、石板小路，村里的狗都很悠闲。',
     fact:'郝堂村位于信阳平桥区，荷塘环绕、豫南民居保存较好，是信阳周边热门的乡村游目的地。' },
-  teavillage:{ name:'文新茶村', img:'assets/spot-teavillage.jpg',
+  teavillage:{ name:'文新茶村',
+    photos:[
+      {src:'assets/spot-teavillage-1.jpg', cap:'连片茶山'},
+      {src:'assets/spot-teavillage-2.jpg', cap:'一芽两叶'},
+      {src:'assets/spot-teavillage-3.jpg', cap:'采茶归途'}
+    ],
     desc:'一层层茶垄顺着山势铺开，采茶季走进茶山，满坡都是新叶的香气。',
     fact:'浉河港镇是信阳毛尖的核心产区，文新的生态茶园就分布在这片起伏的茶山上。' },
-  lingshan:{ name:'灵山', img:'assets/spot-lingshan.jpg',
+  lingshan:{ name:'灵山',
+    photos:[
+      {src:'assets/spot-lingshan-1.jpg', cap:'松林古刹'},
+      {src:'assets/spot-lingshan-2.jpg', cap:'云中峰峦'},
+      {src:'assets/spot-lingshan-3.jpg', cap:'山泉石阶'}
+    ],
     desc:'石阶往云雾里去，松林深处一座古刹。山泉落进潭里，声音很轻。',
     fact:'灵山位于罗山县，山中有古刹灵山寺，云雾、松林与石阶是这里最典型的景色。' }
 };
-let tourState = null, pvSpot = null;
+let tourState = null, pvSpot = null, pvIdx = 0;
 function startTour(){
   tourState = {};
   Object.keys(TOUR_SPOTS).forEach(k=>{ tourState[k] = !!state.tour; });
@@ -1467,14 +1589,58 @@ function startTour(){
 function openPhoto(k){
   const d = TOUR_SPOTS[k];
   if(!d) return;
-  pvSpot = k;
-  $('#pvImg').src = d.img;
-  $('#pvImg').alt = d.name;
+  pvSpot = k; pvIdx = 0;
+  buildThumbs(d);
   $('#pvTitle').textContent = d.name;
   $('#pvDesc').textContent = d.desc;
   $('#pvFact').textContent = d.fact;
+  renderPv(false);
   updatePv();
   $('#photoView').classList.add('show');
+}
+function buildThumbs(d){
+  const box = $('#pvThumbs');
+  box.innerHTML = '';
+  d.photos.forEach((p,i)=>{
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'pv-thumb';
+    b.setAttribute('aria-label', p.cap);
+    const im = document.createElement('img');
+    im.src = p.src; im.alt = '';
+    b.appendChild(im);
+    b.addEventListener('click', ()=>{ if(i===pvIdx) return; pvIdx = i; sfx.tap(); renderPv(true); });
+    box.appendChild(b);
+  });
+}
+function renderPv(anim){
+  const d = TOUR_SPOTS[pvSpot];
+  if(!d) return;
+  const p = d.photos[pvIdx];
+  const img = $('#pvImg');
+  img.src = p.src;
+  img.alt = d.name + ' · ' + p.cap;
+  $('#pvCap').textContent = p.cap;
+  $('#pvCount').textContent = (pvIdx+1) + ' / ' + d.photos.length;
+  $$('#pvThumbs .pv-thumb').forEach((t,i)=>t.classList.toggle('on', i===pvIdx));
+  if(anim){
+    img.classList.remove('anim');
+    void img.offsetWidth;
+    img.classList.add('anim');
+  }
+  const multi = d.photos.length > 1;
+  $('#pvPrev').hidden = !multi;
+  $('#pvNext').hidden = !multi;
+  const nx = d.photos[(pvIdx+1) % d.photos.length];
+  if(nx && nx.src !== p.src){ const pre = new Image(); pre.src = nx.src; }
+}
+function stepPhoto(dir){
+  const d = TOUR_SPOTS[pvSpot];
+  if(!d || d.photos.length < 2) return;
+  const n = d.photos.length;
+  pvIdx = (pvIdx + dir + n) % n;
+  sfx.tap();
+  renderPv(true);
 }
 function updatePv(){
   const visited = !!tourState[pvSpot];
@@ -1487,6 +1653,26 @@ function closePhoto(){ $('#photoView').classList.remove('show'); }
 function startTourBind(){
   $('#pvClose').addEventListener('click', ()=>{ sfx.tap(); closePhoto(); });
   $('#photoView').addEventListener('click', e=>{ if(e.target === $('#photoView')) closePhoto(); });
+  $('#pvPrev').addEventListener('click', ()=>stepPhoto(-1));
+  $('#pvNext').addEventListener('click', ()=>stepPhoto(1));
+  const fig = document.querySelector('#photoView .pv-figure');
+  let pvSwipe = null;
+  fig.addEventListener('touchstart', e=>{
+    const t = e.touches[0];
+    pvSwipe = {x:t.clientX, y:t.clientY};
+  }, {passive:true});
+  fig.addEventListener('touchend', e=>{
+    if(!pvSwipe) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - pvSwipe.x, dy = t.clientY - pvSwipe.y;
+    pvSwipe = null;
+    if(Math.abs(dx) > 34 && Math.abs(dx) > Math.abs(dy)*1.2) stepPhoto(dx < 0 ? 1 : -1);
+  });
+  document.addEventListener('keydown', e=>{
+    if(!$('#photoView').classList.contains('show')) return;
+    if(e.key==='ArrowLeft') stepPhoto(-1);
+    if(e.key==='ArrowRight') stepPhoto(1);
+  });
   $('#pvStamp').addEventListener('click', ()=>{
     if(!pvSpot || !tourState) return;
     if(tourState[pvSpot]){ closePhoto(); return; }
